@@ -1,51 +1,25 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#   http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-"""Example DAG demonstrating the usage of dynamic task mapping."""
-
-from __future__ import annotations
-
 from datetime import datetime
-
+from airflow import DAG
 from airflow.decorators import task
-from airflow.models.dag import DAG
-
+from airflow.operators.dummy import DummyOperator
 import ee
 
-with DAG(dag_id="example_dynamic_ee_task_mapping", schedule=None, start_date=datetime(2022, 3, 4)) as dag:
-    def initialize_ee():
-        ee.Authenticate()
-        ee.Initialize(
-            project='dgena-demo3',
-            opt_url='https://earthengine-highvolume.googleapis.com')
-
-
+# DAG definition
+with DAG(dag_id='hello_ee', description='A workflow which calls Earth Engine', 
+         start_date=datetime(2025,8,27), catchup=False, tags=['gcp', 'earthengine', 'test']) as dag:
+    
     @task
-    def add_one(x: int):
-        initialize_ee()
+    def hello_ee():
+        # Initialize Earth Engine inside the task
+        ee.Initialize(project='dgena-demo3')
 
-        print(ee.String(f'Hello from EE: {x}!').getInfo())
+        # Call some Earth Engine code
+        print(ee.String("Hello from Earth Engine!").getInfo())
 
-        return x + 1
+    start = DummyOperator(task_id='start')
+    
+    end = DummyOperator(task_id='end')
 
-    @task
-    def sum_it(values):
-        total = sum(values)
-        print(f"Total was {total}")
+    # define task dependencies
+    start >> hello_ee() >> end
 
-    added_values = add_one.expand(x=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-    sum_it(added_values)

@@ -9,7 +9,8 @@ CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${A
 
 uv pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 
-uv add apache-airflow==2.10.5
+uv add apache-airflow-providers-google
+
 uv add earthengine-api
 
 
