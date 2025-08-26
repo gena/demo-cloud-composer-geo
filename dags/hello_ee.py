@@ -5,7 +5,7 @@ from airflow.operators.dummy import DummyOperator # type: ignore
 import ee
 
 # Define global variables
-PROJECT_ID = "dgena-demo3"  # Replace with your GCP project ID
+PROJECT_ID = "<your-project-id>"  # Replace with your GCP project ID
 
 # DAG definition
 with DAG(dag_id='hello_ee',

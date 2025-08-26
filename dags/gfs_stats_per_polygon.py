@@ -12,7 +12,7 @@ import io
 
 # Define global variables
 PROJECT_ID = "<your-project-id>"  # Replace with your GCP project ID
-GCS_BUCKET_PATH = "<your-gcs-bucked-for-json-files>"  # Replace with your GCS bucket name
+GCS_BUCKET_PATH = "<your-gcs-bucket>"  # Replace with your GCS bucket name
 BQ_DATASET_NAME = "ee_gfs_workflow"  # Replace with your BigQuery dataset name
 BQ_TABLE_NAME = "temperature_stats"  # Replace with your BigQuery table name
 
