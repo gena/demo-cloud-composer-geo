@@ -9,7 +9,7 @@ AIRFLOW_VERSION=2.10.5
 
 # uv pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
 
-uv pip install apache-airflow==3.0.4 apache-airflow-providers-google==14.1.0
+uv pip install apache-airflow==2.10.5 apache-airflow-providers-google==14.1.0
 
 uv add apache-airflow-providers-google
 
