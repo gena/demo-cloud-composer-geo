@@ -5,7 +5,7 @@ from airflow.operators.empty import EmptyOperator
 from airflow.providers.google.cloud.operators.bigquery import BigQueryInsertJobOperator, BigQueryCreateTableOperator, BigQueryCreateEmptyDatasetOperator
 from airflow.providers.google.cloud.operators.gcs import GCSListObjectsOperator
 
-GCP_PROJECT_ID = 'dgena-demo3'
+GCP_PROJECT_ID = '<your-project-id>'
 GCP_LOCATION = "US"
 BIGQUERY_DATASET = 'airflow_test'
 BIGQUERY_TABLE = 'airflow_task_logs'
